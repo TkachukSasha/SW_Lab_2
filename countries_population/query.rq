@@ -1,0 +1,12 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?country ?population
+WHERE {
+  ?country rdf:type dbo:Country ;
+    dbo:countryCode ?countryCode ;
+    dbo:timeZone dbr:Eastern_European_Time ;
+    dbo:populationTotal ?population .
+}
+ORDER BY DESC(?population)

@@ -1,0 +1,22 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?country ?languages
+WHERE {
+  ?country dbo:continent ?continent ;
+          rdfs:label ?countryLabel .
+  
+  FILTER (LANG(?countryLabel) = "en") 
+  FILTER (STRSTARTS(?countryLabel, "A"))
+  FILTER (?continent IN (dbr:Europe, dbr:North_America))
+
+  OPTIONAL {
+    ?country dbo:language ?language .
+    ?language rdfs:label ?languageLabel .
+    FILTER (LANG(?languageLabel) = "en")
+  }
+
+  BIND (IF(BOUND(?languageLabel), CONCAT(UPPER(STR(?languageLabel)), "|"), "") AS ?languages)
+}
+ORDER BY ?countryLabel

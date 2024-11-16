@@ -1,0 +1,12 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT ?university (COUNT(?laureate) AS ?numLaureates) WHERE {
+  ?laureate dbo:award dbr:Nobel_Prize_in_Physics ;
+            dbo:almaMater ?university .
+  ?university rdfs:label ?universityName .
+  FILTER(LANG(?universityName) = "en")
+}
+GROUP BY ?university
+ORDER BY DESC(?numLaureates)
+LIMIT 10

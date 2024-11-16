@@ -1,0 +1,12 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT (COUNT(DISTINCT ?laureate) AS ?numImmigrants) WHERE {
+  ?laureate dbo:award dbr:Nobel_Prize_in_Physics ;
+            dbo:birthPlace ?birthPlace ;
+            dbo:almaMater ?university .
+  ?birthPlace dbo:country ?birthCountry .
+  ?university dbo:country ?universityCountry .
+  FILTER(?birthCountry != ?universityCountry)
+}

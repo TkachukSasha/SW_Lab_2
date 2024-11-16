@@ -1,0 +1,11 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT ?laureate ?name ?birthDate 
+WHERE {
+  ?laureate dbo:award dbr:Nobel_Prize_in_Physics ;
+            dbo:birthDate ?birthDate ;
+            rdfs:label ?name .
+  FILTER(LANG(?name) = "en")
+}
+ORDER BY DESC(?birthDate)
